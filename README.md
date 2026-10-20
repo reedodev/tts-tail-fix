@@ -57,6 +57,13 @@ python skills/tts-tail-fix/scripts/tts_tail.py cut raw_with_sentinel.wav clean.w
 
 `node tests/run.mjs`가 SKILL.md 형식을 검사하고 예시 파일로 스크립트를 실제로 실행합니다. 푸시할 때마다 GitHub Actions가 같은 시험을 돌립니다(위 test 배지).
 
+<!-- credits -->
+## 출처와 영감
+
+- **문제를 발견한 곳**: 작성자가 [Qwen3-TTS](https://github.com/QwenLM/Qwen3-TTS)(Alibaba Qwen 팀)로 만든 본인 목소리 음성에서 측정했습니다. 다른 TTS에서도 같은 증상이 나타날 수 있지만 모두 확인한 것은 아닙니다.
+- **마지막 단어 확인**: 받아쓰기는 [openai/whisper](https://github.com/openai/whisper) 같은 음성 인식 도구를 씁니다.
+- 버리는 단어(센티널)를 붙여 쉼에서 자르는 방법과 검사 스크립트는 작성자가 직접 시험하며 만든 것입니다.
+
 ## 만든 사람
 
 **리도**, AI 좌충우돌 실습 중인 20년차 엔지니어입니다. 매일 AI에게 일을 맡기다가 막힌 부분을 고쳐 가며 이 스킬을 만들었습니다.
@@ -69,5 +76,8 @@ python skills/tts-tail-fix/scripts/tts_tail.py cut raw_with_sentinel.wav clean.w
 ## English
 
 Detect and fix TTS / voice-clone clips whose last syllable is chopped off: sentinel word, cut at the pause, fade where the sound really ends, and verify.
+
+**Credits.**
+- The chopped-ending problem was measured on clips made with [Qwen3-TTS](https://github.com/QwenLM/Qwen3-TTS); other engines were not all tested. Last-word checks use an ASR such as [openai/whisper](https://github.com/openai/whisper). The sentinel method and scripts are original.
 
 Install: `/plugin marketplace add reedodev/tts-tail-fix` then `/plugin install tts-tail-fix@tts-tail-fix`, or copy `skills/tts-tail-fix` into `~/.claude/skills/`. See [SKILL.md](skills/tts-tail-fix/SKILL.md) for the full procedure. MIT License; third-party models, fonts and libraries keep their own licenses.
