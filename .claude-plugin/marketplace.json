@@ -1,0 +1,21 @@
+{
+  "name": "tts-tail-fix",
+  "owner": {
+    "name": "Reedo"
+  },
+  "metadata": {
+    "description": "Detect and fix TTS / voice-clone clips whose last syllable is chopped off: sentinel word, cut at the pause, fade where the sound really ends, and verify.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "tts-tail-fix",
+      "description": "Detect and fix TTS / voice-clone clips whose last syllable is chopped off: sentinel word, cut at the pause, fade where the sound really ends, and verify.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/tts-tail-fix"
+      ]
+    }
+  ]
+}
