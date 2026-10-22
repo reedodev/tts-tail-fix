@@ -29,5 +29,7 @@ if (run(py, [T, 'cut', f('chopped.wav'), f('x.wav')]).status !== 3) fail('no pau
 if (run(py, [T, 'finish', f('chopped.wav'), f('fin.wav')]).status !== 0) fail('finish failed');
 const c = run(py, [T, 'check', f('cut.wav'), f('fin.wav')]);
 if (c.status !== 0) fail('fixed clips should pass: ' + c.stdout);
+const m = run(py, [T, 'check', f('nope.wav')]);
+if (!(m.status === 2 && /not found/.test(m.stderr))) fail('missing file should exit 2 with a short message: ' + m.status + m.stderr);
 fs.rmSync(tmp, { recursive: true, force: true });
 console.log('tts-tail-fix ok: detects chop, cuts sentinel, finishes tail');

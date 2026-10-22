@@ -18,10 +18,14 @@ Requires: numpy, soundfile   (pip install numpy soundfile)
 A PASS from `check` only measures how fast the level drops. It is not a substitute
 for listening, and it cannot tell whether the last syllable was pronounced fully.
 """
+import os
 import sys
 
-import numpy as np
-import soundfile as sf
+try:
+    import numpy as np
+    import soundfile as sf
+except ImportError:  # pragma: no cover
+    sys.exit("numpy and soundfile are required. Run: pip install numpy soundfile")
 
 WIN = 0.010  # 10 ms analysis window
 
@@ -138,6 +142,13 @@ def cmd_finish(src, dst):
     return 0
 
 
+def missing_inputs(paths):
+    gone = [p for p in paths if not os.path.isfile(p)]
+    for p in gone:
+        print(f"Error: audio file not found: {p}", file=sys.stderr)
+    return bool(gone)
+
+
 def main():
     a = [s for s in sys.argv[1:]]
     if not a:
@@ -155,11 +166,11 @@ def main():
             continue
         pos.append(s)
     if cmd == "check" and pos:
-        return cmd_check(pos)
+        return 2 if missing_inputs(pos) else cmd_check(pos)
     if cmd == "cut" and len(pos) == 2:
-        return cmd_cut(*pos)
+        return 2 if missing_inputs(pos[:1]) else cmd_cut(*pos)
     if cmd == "finish" and len(pos) == 2:
-        return cmd_finish(*pos)
+        return 2 if missing_inputs(pos[:1]) else cmd_finish(*pos)
     print(__doc__)
     return 2
 
